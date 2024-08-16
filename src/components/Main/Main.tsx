@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const Main = () => {
   return (
     <>
-      <div>Main</div>
+      <h2>Main</h2>
       <div>
         <Link to="/form1">Form1 (uncontrolled components)</Link>
       </div>
