@@ -16,12 +16,5 @@ export default function LabelInput(props: Props) {
       </label>
       <span className={_.error}>{props.error}</span>
     </div>
-    //   <div className={_.formUnit}>
-    //   <label htmlFor="email" className={_.email}>
-    //     Email
-    //     <input type="text" id="email" name="email" />
-    //   </label>
-    //   <span className={_.error}></span>
-    // </div>
   );
 }
