@@ -5,16 +5,21 @@ import { object, string, ValidationError, number, boolean } from 'yup';
 import LabelInput from '../LabelInput/LabelInput';
 import GenderPicker from '../GenderPicker/GenderPicker';
 import TermsConditions from '../TermsConditions/TermsConditions';
+import * as yup from 'yup';
 
 const Form1 = () => {
   const [nameError, setNameError] = useState('');
   const [ageError, setAgeError] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [genderError, setGenderError] = useState('');
   const [termsError, setTermsError] = useState('');
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const genderMaleRef = useRef<HTMLInputElement>(null);
   const genderFemaleRef = useRef<HTMLInputElement>(null);
   const termsRef = useRef<HTMLInputElement>(null);
@@ -25,6 +30,8 @@ const Form1 = () => {
       !nameRef.current ||
       !ageRef.current ||
       !emailRef.current ||
+      !passwordRef.current ||
+      !confirmPasswordRef.current ||
       !genderMaleRef.current ||
       !genderFemaleRef.current ||
       !termsRef.current
@@ -34,9 +41,18 @@ const Form1 = () => {
     const userSchema = object({
       name: string()
         .required('Name is a required field. ')
-        .matches(/^[A-Z]{1}[a-z]{1,}$/, ' Сapitalise first letter, use English alphabet'),
+        .matches(/^[A-Z]{1}[a-z]{1,}$/, ' Сapitalise the first letter, use English alphabet'),
       age: number().typeError('Age must be a number.').positive(' Age must be a positive number.'),
       email: string().required('Email is a required field. ').email('Email must be a valid email.'),
+      password: string()
+        .required('Password is a required field. ')
+        .matches(/^[\S]{0,}[A-Z]{1}[\S]{0,}$/, ' Must include an uppercased letter.')
+        .matches(/^[\S]{0,}[a-z]{1}[\S]{0,}$/, ' Must include an lowercased letter.')
+        .matches(/^[\S]{0,}[\W]{1}[\S]{0,}$/, ' Must include a special character.')
+        .matches(/^[\S]{0,}[0-9]{1}[\S]{0,}$/, ' Must include a number.'),
+      confirmPassword: string()
+        .required('Confirm password is a required field. ')
+        .oneOf([yup.ref('password')], 'Passwords must match'),
       genderMale: boolean(),
       genderFemale: boolean().when('genderMale', {
         is: false,
@@ -50,6 +66,8 @@ const Form1 = () => {
           name: nameRef.current.value,
           age: ageRef.current.value,
           email: emailRef.current.value,
+          password: passwordRef.current.value,
+          confirmPassword: confirmPasswordRef.current.value,
           genderMale: genderMaleRef.current.checked,
           genderFemale: genderFemaleRef.current.checked,
           terms: termsRef.current.checked,
@@ -57,15 +75,28 @@ const Form1 = () => {
         { abortEarly: false },
       );
       console.log('user: ', user);
+      console.log('passwordRef.current.value: ', passwordRef.current.value);
+
+      console.log('passwordRef.current.value: ', confirmPasswordRef.current.value);
 
       setNameError('');
       setAgeError('');
       setEmailError('');
+      setPasswordError('');
+      setConfirmPasswordError('');
       setGenderError('');
       setTermsError('');
     } catch (err: unknown) {
       if (err instanceof ValidationError) {
-        const errors: Record<string, string> = { name: '', age: '', email: '', terms: '', genderFemale: '' };
+        const errors: Record<string, string> = {
+          name: '',
+          age: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          terms: '',
+          genderFemale: '',
+        };
 
         err.inner.forEach((elem) => {
           if (elem.path) errors[elem.path] += elem.errors[0];
@@ -73,6 +104,8 @@ const Form1 = () => {
         setNameError(errors.name);
         setAgeError(errors.age);
         setEmailError(errors.email);
+        setPasswordError(errors.password);
+        setConfirmPasswordError(errors.confirmPassword);
         setGenderError(errors.genderFemale);
         setTermsError(errors.terms);
       }
@@ -95,22 +128,8 @@ const Form1 = () => {
         <LabelInput type="text" name="name" refName={nameRef} error={nameError} />
         <LabelInput type="number" name="age" refName={ageRef} error={ageError} />
         <LabelInput type="text" name="email" refName={emailRef} error={emailError} />
-
-        <div className={_.formUnit}>
-          <label htmlFor="password" className={_.password}>
-            Password
-            <input type="password" id="password" name="password" />
-          </label>
-          <span className={_.error}></span>
-        </div>
-
-        <div className={_.formUnit}>
-          <label htmlFor="confirm_password" className={_.confirm_password}>
-            Confirm password
-            <input type="text" id="confirm_password" name="confirm_password" />
-          </label>
-          <span className={_.error}></span>
-        </div>
+        <LabelInput type="password" name="password" refName={passwordRef} error={passwordError} />
+        <LabelInput type="password" name="confirmPassword" refName={confirmPasswordRef} error={confirmPasswordError} />
 
         <GenderPicker refName={[genderMaleRef, genderFemaleRef]} error={genderError} />
 

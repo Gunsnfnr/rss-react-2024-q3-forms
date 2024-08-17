@@ -4,16 +4,16 @@
 .form1 {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 20px;
   align-items: center;
-  width: 425px;
+  width: 460px;
 }
 
 .name,
 .age,
 .email,
 .password,
-.confirm_password,
+.confirmPassword,
 .country,
 .gender {
   display: flex;
@@ -26,7 +26,7 @@
 .age,
 .email,
 .password,
-.confirm_password,
+.confirmPassword,
 .country,
 .gender > :not(.genders) {
   color: #331f1f;
@@ -34,12 +34,19 @@
   font-size: 1.05rem;
 }
 
+input[type='text'],
+input[type='email'],
+input[type='number'],
+input[type='password'] {
+  width: 250px;
+}
 .error {
   color: #e20000;
   height: 15px;
   align-self: flex-end;
   line-height: 18px;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  text-align: left;
 }
 
 .formUnit {
@@ -48,8 +55,12 @@
   width: 100%;
 }
 
-.pr20 {
-  padding-right: 20px;
+.pr55 {
+  padding-right: 55px;
+}
+
+.pr70 {
+  padding-right: 70px;
 }
 
 .mr10 {
