@@ -25,5 +25,5 @@ export const userSchema = object({
       then: (userSchema) => userSchema.isTrue('This is a mandatory question.'),
     }),
   // country: string().required('Country is a required field. ').oneOf(countries, 'Select country from the list.'),
-  // terms: boolean().isTrue('You must agree with the terms and conditions.'),
+  terms: boolean().required('This is a mandatory question.').isTrue('You must agree with the terms and conditions.'),
 });

@@ -15,6 +15,7 @@ export interface ValidateUser {
   confirmPassword: string;
   genderMale: NonNullable<boolean | undefined>;
   genderFemale: NonNullable<boolean | undefined>;
+  terms: true;
   // country: string;
   gender?: string;
 }

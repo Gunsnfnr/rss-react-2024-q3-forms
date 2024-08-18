@@ -5,8 +5,9 @@ import { userSchema } from '../../userSchema';
 import { useForm } from 'react-hook-form';
 import RLabelInput from '../ReactHookForm/RLabelInput';
 import { ValidateUser } from '../../types';
-// import UploadImage from '../UploadImage/UploadImage';
+import UploadImage from '../UploadImage/UploadImage';
 import RGenderPicker from '../ReactHookForm/RGenderPicker';
+import RTermsConditions from '../ReactHookForm/RTermsConditions';
 
 const Form2 = () => {
   const {
@@ -43,9 +44,9 @@ const Form2 = () => {
         <RLabelInput type="password" name="password" register={register} error={errors.password} />
         <RLabelInput type="password" name="confirmPassword" register={register} error={errors.confirmPassword} />
         <RGenderPicker register={register} error={errors.genderFemale} />
-        {/* <UploadImage /> */}
-        {/* <Country refName={countryRef} error={countryError} />
-        <TermsConditions refName={termsRef} error={termsError} /> */}
+        <UploadImage />
+        {/* <Country refName={countryRef} error={countryError} /> */}
+        <RTermsConditions register={register} error={errors.terms} />
 
         <input type="submit" value="Submit" />
       </form>
