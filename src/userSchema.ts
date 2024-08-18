@@ -1,6 +1,6 @@
 import { object, string, number, boolean } from 'yup';
 import * as yup from 'yup';
-// import { countries } from './data/countries';
+import { countries } from './data/countries';
 
 export const userSchema = object({
   name: string()
@@ -17,13 +17,11 @@ export const userSchema = object({
   confirmPassword: string()
     .required('Confirm password is a required field. ')
     .oneOf([yup.ref('password')], 'Passwords must match'),
-  genderMale: boolean().required('This is a mandatory question.'),
-  genderFemale: boolean()
-    .required('This is a mandatory question.')
-    .when('genderMale', {
-      is: false,
-      then: (userSchema) => userSchema.isTrue('This is a mandatory question.'),
-    }),
-  // country: string().required('Country is a required field. ').oneOf(countries, 'Select country from the list.'),
+  genderMale: boolean(),
+  genderFemale: boolean().when('genderMale', {
+    is: false,
+    then: (userSchema) => userSchema.isTrue('This is a mandatory question.'),
+  }),
+  country: string().required('Country is a required field. ').oneOf(countries, 'Select country from the list.'),
   terms: boolean().required('This is a mandatory question.').isTrue('You must agree with the terms and conditions.'),
 });

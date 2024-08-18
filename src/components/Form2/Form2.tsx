@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import _ from '../Components.module.css';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userSchema } from '../../userSchema';
@@ -8,6 +8,10 @@ import { ValidateUser } from '../../types';
 import UploadImage from '../UploadImage/UploadImage';
 import RGenderPicker from '../ReactHookForm/RGenderPicker';
 import RTermsConditions from '../ReactHookForm/RTermsConditions';
+import RCountry from '../ReactHookForm/RCountry';
+import { FormEvent } from 'react';
+import { useDispatch } from 'react-redux';
+import { submitUser } from '../../store/usersSlice';
 
 const Form2 = () => {
   const {
@@ -19,10 +23,24 @@ const Form2 = () => {
     mode: 'onChange',
   });
 
-  console.log('errors: ', errors);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = (data: ValidateUser) => {
-    console.log(data);
+    if (Object.values(errors).length === 0) {
+      console.log('NO errors!');
+      dispatch(
+        submitUser({
+          name: data.name,
+          age: Number(data.age),
+          email: data.email,
+          password: data.password,
+          country: data.country,
+          gender: data.gender ? data.gender : '',
+        }),
+      );
+      navigate('/');
+    }
   };
 
   return (
@@ -34,7 +52,8 @@ const Form2 = () => {
 
       <form
         className={_.form}
-        onSubmit={() => {
+        onSubmit={(e: FormEvent) => {
+          e.preventDefault();
           void handleSubmit(onSubmit)();
         }}
       >
@@ -45,7 +64,7 @@ const Form2 = () => {
         <RLabelInput type="password" name="confirmPassword" register={register} error={errors.confirmPassword} />
         <RGenderPicker register={register} error={errors.genderFemale} />
         <UploadImage />
-        {/* <Country refName={countryRef} error={countryError} /> */}
+        <RCountry register={register} error={errors.country} />
         <RTermsConditions register={register} error={errors.terms} />
 
         <input type="submit" value="Submit" />
