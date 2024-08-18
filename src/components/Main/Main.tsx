@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import UsersOutput from '../UsersOutput/UsersOutput';
 
 const Main = () => {
   return (
@@ -10,6 +11,7 @@ const Main = () => {
       <div>
         <Link to="/form2">Form2 (React Hook Form)</Link>
       </div>
+      <UsersOutput />
     </>
   );
 };

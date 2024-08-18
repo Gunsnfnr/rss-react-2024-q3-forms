@@ -1,4 +1,4 @@
-import _ from '../Form1/Form1.module.css';
+import _ from '../Components.module.css';
 
 interface Props {
   type: 'text' | 'number' | 'email' | 'password';

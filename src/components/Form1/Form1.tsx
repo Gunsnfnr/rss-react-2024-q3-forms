@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom';
-import _ from './Form1.module.css';
+import { Link, useNavigate } from 'react-router-dom';
+import _ from '../Components.module.css';
 import { FormEvent, useRef, useState } from 'react';
-import { object, string, ValidationError, number, boolean } from 'yup';
+import { ValidationError } from 'yup';
 import LabelInput from '../LabelInput/LabelInput';
 import GenderPicker from '../GenderPicker/GenderPicker';
 import TermsConditions from '../TermsConditions/TermsConditions';
-import * as yup from 'yup';
+import { userSchema } from '../../userSchema';
+import { useDispatch } from 'react-redux';
+import { submitUser } from '../../store/usersSlice';
 
 const Form1 = () => {
   const [nameError, setNameError] = useState('');
@@ -24,6 +26,9 @@ const Form1 = () => {
   const genderFemaleRef = useRef<HTMLInputElement>(null);
   const termsRef = useRef<HTMLInputElement>(null);
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleSubmit = async (e: FormEvent): Promise<void | null> => {
     e.preventDefault();
     if (
@@ -38,32 +43,20 @@ const Form1 = () => {
     )
       return null;
 
-    const userSchema = object({
-      name: string()
-        .required('Name is a required field. ')
-        .matches(/^[A-Z]{1}[a-z]{1,}$/, ' Сapitalise the first letter, use English alphabet'),
-      age: number().typeError('Age must be a number.').positive(' Age must be a positive number.'),
-      email: string().required('Email is a required field. ').email('Email must be a valid email.'),
-      password: string()
-        .required('Password is a required field. ')
-        .matches(/^[\S]{0,}[A-Z]{1}[\S]{0,}$/, ' Must include an uppercased letter.')
-        .matches(/^[\S]{0,}[a-z]{1}[\S]{0,}$/, ' Must include an lowercased letter.')
-        .matches(/^[\S]{0,}[\W]{1}[\S]{0,}$/, ' Must include a special character.')
-        .matches(/^[\S]{0,}[0-9]{1}[\S]{0,}$/, ' Must include a number.'),
-      confirmPassword: string()
-        .required('Confirm password is a required field. ')
-        .oneOf([yup.ref('password')], 'Passwords must match'),
-      genderMale: boolean(),
-      genderFemale: boolean().when('genderMale', {
-        is: false,
-        then: (userSchema) => userSchema.isTrue('This is a mandatory question.'),
-      }),
-      terms: boolean().isTrue('You must agree with the terms and conditions.'),
-    });
+    const errors: Record<string, string> = {
+      name: '',
+      age: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      terms: '',
+      genderFemale: '',
+    };
+
     try {
-      const user = await userSchema.validate(
+      await userSchema.validate(
         {
-          name: nameRef.current.value,
+          name: nameRef.current?.value,
           age: ageRef.current.value,
           email: emailRef.current.value,
           password: passwordRef.current.value,
@@ -74,33 +67,12 @@ const Form1 = () => {
         },
         { abortEarly: false },
       );
-      console.log('user: ', user);
-      console.log('passwordRef.current.value: ', passwordRef.current.value);
-
-      console.log('passwordRef.current.value: ', confirmPasswordRef.current.value);
-
-      setNameError('');
-      setAgeError('');
-      setEmailError('');
-      setPasswordError('');
-      setConfirmPasswordError('');
-      setGenderError('');
-      setTermsError('');
     } catch (err: unknown) {
       if (err instanceof ValidationError) {
-        const errors: Record<string, string> = {
-          name: '',
-          age: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
-          terms: '',
-          genderFemale: '',
-        };
-
         err.inner.forEach((elem) => {
           if (elem.path) errors[elem.path] += elem.errors[0];
         });
+
         setNameError(errors.name);
         setAgeError(errors.age);
         setEmailError(errors.email);
@@ -108,6 +80,19 @@ const Form1 = () => {
         setConfirmPasswordError(errors.confirmPassword);
         setGenderError(errors.genderFemale);
         setTermsError(errors.terms);
+      }
+    } finally {
+      if (Object.values(errors).every((val) => val === '')) {
+        dispatch(
+          submitUser({
+            name: nameRef.current.value,
+            age: Number(ageRef.current.value),
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+            gender: genderFemaleRef.current.checked ? 'female' : 'male',
+          }),
+        );
+        navigate('/');
       }
     }
   };

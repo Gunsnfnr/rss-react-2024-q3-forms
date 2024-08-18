@@ -10,8 +10,6 @@ const router = createBrowserRouter([
   {
     path: '/',
     Component: Main,
-    // children: [
-    // ],
   },
   {
     path: '/form1',
@@ -23,14 +21,6 @@ const router = createBrowserRouter([
   },
   { path: '*', Component: NotFound },
 ]);
-
-// const App = () => {
-//   return (
-//     <>
-//       <div>React forms task</div>
-//     </>
-//   );
-// };
 
 const App = () => <RouterProvider router={router} />;
 

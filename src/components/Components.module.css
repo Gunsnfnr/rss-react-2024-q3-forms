@@ -71,3 +71,30 @@ input[type='password'] {
   width: 180px;
   direction: rtl;
 }
+
+.usersTitle {
+  font-weight: 500;
+  margin: 10px 0px;
+}
+
+.usersListed {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.userItem {
+  border: 1px solid #7c7373;
+  padding: 0 5px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.userItemSubstring {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bold {
+  font-weight: bold;
+}
