@@ -8,6 +8,8 @@ import TermsConditions from '../TermsConditions/TermsConditions';
 import { userSchema } from '../../userSchema';
 import { useDispatch } from 'react-redux';
 import { submitUser } from '../../store/usersSlice';
+import Country from '../Country/Country';
+import UploadImage from '../UploadImage/UploadImage';
 
 const Form1 = () => {
   const [nameError, setNameError] = useState('');
@@ -16,6 +18,7 @@ const Form1 = () => {
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [genderError, setGenderError] = useState('');
+  const [countryError, setCountryError] = useState('');
   const [termsError, setTermsError] = useState('');
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
@@ -24,6 +27,7 @@ const Form1 = () => {
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const genderMaleRef = useRef<HTMLInputElement>(null);
   const genderFemaleRef = useRef<HTMLInputElement>(null);
+  const countryRef = useRef<HTMLInputElement>(null);
   const termsRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
@@ -39,6 +43,7 @@ const Form1 = () => {
       !confirmPasswordRef.current ||
       !genderMaleRef.current ||
       !genderFemaleRef.current ||
+      !countryRef.current ||
       !termsRef.current
     )
       return null;
@@ -50,6 +55,7 @@ const Form1 = () => {
       password: '',
       confirmPassword: '',
       terms: '',
+      country: '',
       genderFemale: '',
     };
 
@@ -63,6 +69,7 @@ const Form1 = () => {
           confirmPassword: confirmPasswordRef.current.value,
           genderMale: genderMaleRef.current.checked,
           genderFemale: genderFemaleRef.current.checked,
+          country: countryRef.current.value,
           terms: termsRef.current.checked,
         },
         { abortEarly: false },
@@ -79,6 +86,7 @@ const Form1 = () => {
         setPasswordError(errors.password);
         setConfirmPasswordError(errors.confirmPassword);
         setGenderError(errors.genderFemale);
+        setCountryError(errors.country);
         setTermsError(errors.terms);
       }
     } finally {
@@ -89,6 +97,7 @@ const Form1 = () => {
             age: Number(ageRef.current.value),
             email: emailRef.current.value,
             password: passwordRef.current.value,
+            country: countryRef.current.value,
             gender: genderFemaleRef.current.checked ? 'female' : 'male',
           }),
         );
@@ -115,22 +124,9 @@ const Form1 = () => {
         <LabelInput type="text" name="email" refName={emailRef} error={emailError} />
         <LabelInput type="password" name="password" refName={passwordRef} error={passwordError} />
         <LabelInput type="password" name="confirmPassword" refName={confirmPasswordRef} error={confirmPasswordError} />
-
         <GenderPicker refName={[genderMaleRef, genderFemaleRef]} error={genderError} />
-
-        <div className={_.formUnit}>
-          <input className={_.uploadImage} type="file" name="image" id="image" accept="image/png, image/jpeg" />
-          <span className={_.error}></span>
-        </div>
-
-        <div className={_.formUnit}>
-          <label htmlFor="country" className={_.country}>
-            Country
-            <input type="text" id="country" name="country" />
-          </label>
-          <span className={_.error}></span>
-        </div>
-
+        <UploadImage />
+        <Country refName={countryRef} error={countryError} />
         <TermsConditions refName={termsRef} error={termsError} />
 
         <input type="submit" value="Submit" />

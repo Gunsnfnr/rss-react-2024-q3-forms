@@ -1,6 +1,7 @@
 import { object, string, number, boolean } from 'yup';
 
 import * as yup from 'yup';
+import { countries } from './data/countries';
 
 export const userSchema = object({
   name: string()
@@ -22,5 +23,6 @@ export const userSchema = object({
     is: false,
     then: (userSchema) => userSchema.isTrue('This is a mandatory question.'),
   }),
+  country: string().required('Country is a required field. ').oneOf(countries, 'Select country from the list.'),
   terms: boolean().isTrue('You must agree with the terms and conditions.'),
 });

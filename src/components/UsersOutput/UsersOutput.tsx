@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import _ from '../Components.module.css';
 
-export default function UsersOutput() {
+const UsersOutput = () => {
   const users = useSelector((state: RootState) => state.users.users);
   return (
     <>
@@ -21,4 +21,5 @@ export default function UsersOutput() {
       </div>
     </>
   );
-}
+};
+export default UsersOutput;

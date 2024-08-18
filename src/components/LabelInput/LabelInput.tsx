@@ -7,7 +7,7 @@ interface Props {
   error: string;
 }
 
-export default function LabelInput(props: Props) {
+const LabelInput = (props: Props) => {
   return (
     <div className={_.formUnit}>
       <label htmlFor={`${props.name}`} className={_[props.name]}>
@@ -17,4 +17,5 @@ export default function LabelInput(props: Props) {
       <span className={_.error}>{props.error}</span>
     </div>
   );
-}
+};
+export default LabelInput;

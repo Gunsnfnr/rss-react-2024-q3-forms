@@ -5,7 +5,7 @@ interface Props {
   error: string;
 }
 
-export default function TermsConditions(props: Props) {
+const TermsConditions = (props: Props) => {
   return (
     <div className={_.formUnit}>
       <label htmlFor="terms" className={_.terms}>
@@ -15,4 +15,5 @@ export default function TermsConditions(props: Props) {
       <span className={`${_.error} ${_.pr55}`}>{props.error}</span>
     </div>
   );
-}
+};
+export default TermsConditions;

@@ -3,7 +3,7 @@ interface Props {
   refName: React.RefObject<HTMLInputElement>[];
   error: string;
 }
-export default function GenderPicker(props: Props) {
+const GenderPicker = (props: Props) => {
   return (
     <div className={_.formUnit}>
       <div className={_.gender}>
@@ -23,4 +23,5 @@ export default function GenderPicker(props: Props) {
       <span className={_.error}>{props.error}</span>
     </div>
   );
-}
+};
+export default GenderPicker;
