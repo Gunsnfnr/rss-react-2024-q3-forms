@@ -1,13 +1,12 @@
 import { object, string, number, boolean } from 'yup';
-
 import * as yup from 'yup';
-import { countries } from './data/countries';
+// import { countries } from './data/countries';
 
 export const userSchema = object({
   name: string()
     .required('Name is a required field. ')
     .matches(/^[A-Z]{1}[a-z]{1,}$/, ' Сapitalise the first letter, use English alphabet'),
-  age: number().typeError('Age must be a number.').positive(' Age must be a positive number.'),
+  age: number().typeError('Age must be a number.').positive(' Age must be a positive number.').required(),
   email: string().required('Email is a required field. ').email('Email must be a valid email.'),
   password: string()
     .required('Password is a required field. ')
@@ -18,11 +17,13 @@ export const userSchema = object({
   confirmPassword: string()
     .required('Confirm password is a required field. ')
     .oneOf([yup.ref('password')], 'Passwords must match'),
-  genderMale: boolean(),
-  genderFemale: boolean().when('genderMale', {
-    is: false,
-    then: (userSchema) => userSchema.isTrue('This is a mandatory question.'),
-  }),
-  country: string().required('Country is a required field. ').oneOf(countries, 'Select country from the list.'),
-  terms: boolean().isTrue('You must agree with the terms and conditions.'),
+  genderMale: boolean().required('This is a mandatory question.'),
+  genderFemale: boolean()
+    .required('This is a mandatory question.')
+    .when('genderMale', {
+      is: false,
+      then: (userSchema) => userSchema.isTrue('This is a mandatory question.'),
+    }),
+  // country: string().required('Country is a required field. ').oneOf(countries, 'Select country from the list.'),
+  // terms: boolean().isTrue('You must agree with the terms and conditions.'),
 });

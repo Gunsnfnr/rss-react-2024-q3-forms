@@ -114,7 +114,7 @@ const Form1 = () => {
       </div>
 
       <form
-        className={_.form1}
+        className={_.form}
         onSubmit={(e: FormEvent) => {
           void handleSubmit(e);
         }}

@@ -1,7 +1,7 @@
 .mb25 {
   margin-bottom: 25px;
 }
-.form1 {
+.form {
   display: flex;
   flex-direction: column;
   gap: 20px;
