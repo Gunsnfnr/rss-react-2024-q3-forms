@@ -17,7 +17,7 @@ const Form2 = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(userSchema),
     mode: 'onChange',
@@ -28,7 +28,6 @@ const Form2 = () => {
 
   const onSubmit = (data: ValidateUser) => {
     if (Object.values(errors).length === 0) {
-      console.log('NO errors!');
       dispatch(
         submitUser({
           name: data.name,
@@ -62,12 +61,12 @@ const Form2 = () => {
         <RLabelInput type="text" name="email" register={register} error={errors.email} />
         <RLabelInput type="password" name="password" register={register} error={errors.password} />
         <RLabelInput type="password" name="confirmPassword" register={register} error={errors.confirmPassword} />
-        <RGenderPicker register={register} error={errors.genderFemale} />
+        <RGenderPicker register={register} error={errors.gender} />
         <UploadImage />
         <RCountry register={register} error={errors.country} />
         <RTermsConditions register={register} error={errors.terms} />
 
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Submit" disabled={!isValid} />
       </form>
     </>
   );

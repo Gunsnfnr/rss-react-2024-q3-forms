@@ -17,5 +17,5 @@ export interface ValidateUser {
   genderFemale?: NonNullable<boolean | undefined>;
   terms: true;
   country: string;
-  gender?: string;
+  gender: string;
 }
