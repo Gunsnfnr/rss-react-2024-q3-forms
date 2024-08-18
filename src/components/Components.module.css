@@ -40,6 +40,7 @@ input[type='number'],
 input[type='password'] {
   width: 250px;
 }
+
 .error {
   color: #e20000;
   height: 15px;
@@ -97,4 +98,9 @@ input[type='password'] {
 
 .bold {
   font-weight: bold;
+}
+
+.strength {
+  font-size: 0.83rem;
+  font-weight: normal;
 }

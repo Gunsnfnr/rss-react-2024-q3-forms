@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { submitUser } from '../../store/usersSlice';
 import Country from '../Country/Country';
 import UploadImage from '../UploadImage/UploadImage';
+import Password from '../Password/Password';
 
 const Form1 = () => {
   const [nameError, setNameError] = useState('');
@@ -122,7 +123,7 @@ const Form1 = () => {
         <LabelInput type="text" name="name" refName={nameRef} error={nameError} />
         <LabelInput type="number" name="age" refName={ageRef} error={ageError} />
         <LabelInput type="text" name="email" refName={emailRef} error={emailError} />
-        <LabelInput type="password" name="password" refName={passwordRef} error={passwordError} />
+        <Password refName={passwordRef} error={passwordError} />
         <LabelInput type="password" name="confirmPassword" refName={confirmPasswordRef} error={confirmPasswordError} />
         <GenderPicker refName={[genderMaleRef, genderFemaleRef]} error={genderError} />
         <UploadImage />
