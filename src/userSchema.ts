@@ -17,11 +17,6 @@ export const userSchema = object({
   confirmPassword: string()
     .required('Confirm password is a required field. ')
     .oneOf([yup.ref('password')], 'Passwords must match'),
-  genderMale: boolean(),
-  genderFemale: boolean().when('genderMale', {
-    is: false,
-    then: (userSchema) => userSchema.isTrue('This is a mandatory question.'),
-  }),
   gender: string().required(),
   country: string().required('Country is a required field. ').oneOf(countries, 'Select country from the list.'),
   terms: boolean().required('This is a mandatory question.').isTrue('You must agree with the terms and conditions.'),

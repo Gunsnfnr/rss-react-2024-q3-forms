@@ -68,8 +68,7 @@ const Form1 = () => {
           email: emailRef.current.value,
           password: passwordRef.current.value,
           confirmPassword: confirmPasswordRef.current.value,
-          genderMale: genderMaleRef.current.checked,
-          genderFemale: genderFemaleRef.current.checked,
+          gender: genderMaleRef.current.checked ? 'male' : 'female',
           country: countryRef.current.value,
           terms: termsRef.current.checked,
         },
@@ -90,6 +89,7 @@ const Form1 = () => {
         setCountryError(errors.country);
         setTermsError(errors.terms);
       }
+      console.log('err', errors);
     } finally {
       if (Object.values(errors).every((val) => val === '')) {
         dispatch(
