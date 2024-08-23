@@ -12,11 +12,13 @@ import RCountry from '../ReactHookForm/RCountry';
 import { FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { submitUser } from '../../store/usersSlice';
+import RPassword from '../Password/RPassword';
 
 const Form2 = () => {
   const {
     handleSubmit,
     register,
+    watch,
     formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(userSchema),
@@ -41,7 +43,7 @@ const Form2 = () => {
       navigate('/');
     }
   };
-
+  console.log('!watch(password): ', watch('password'));
   return (
     <>
       <div>Form #2 - React Hook Form</div>
@@ -59,14 +61,19 @@ const Form2 = () => {
         <RLabelInput type="text" name="name" register={register} error={errors.name} />
         <RLabelInput type="number" name="age" register={register} error={errors.age} />
         <RLabelInput type="text" name="email" register={register} error={errors.email} />
-        <RLabelInput type="password" name="password" register={register} error={errors.password} />
+        <RPassword register={register} error={errors.password} passwordInputValue={watch('password')} />
         <RLabelInput type="password" name="confirmPassword" register={register} error={errors.confirmPassword} />
         <RGenderPicker register={register} error={errors.gender} />
         <UploadImage />
         <RCountry register={register} error={errors.country} />
         <RTermsConditions register={register} error={errors.terms} />
 
-        <input type="submit" value="Submit" disabled={!isValid} />
+        <input
+          type="submit"
+          value="Submit"
+          disabled={!isValid}
+          onClick={() => console.log('watch(password): ', watch('password'))}
+        />
       </form>
     </>
   );
