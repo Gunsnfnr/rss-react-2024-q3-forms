@@ -1,0 +1,106 @@
+.mb25 {
+  margin-bottom: 25px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 460px;
+}
+
+.name,
+.age,
+.email,
+.password,
+.confirmPassword,
+.country,
+.gender {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.name,
+.age,
+.email,
+.password,
+.confirmPassword,
+.country,
+.gender > :not(.genders) {
+  color: #331f1f;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='number'],
+input[type='password'] {
+  width: 250px;
+}
+
+.error {
+  color: #e20000;
+  height: 15px;
+  align-self: flex-end;
+  line-height: 18px;
+  font-size: 0.8rem;
+  text-align: left;
+}
+
+.formUnit {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.pr55 {
+  padding-right: 55px;
+}
+
+.pr70 {
+  padding-right: 70px;
+}
+
+.mr10 {
+  margin-right: 10px;
+}
+.uploadImage {
+  align-self: self-start;
+  width: 180px;
+  direction: rtl;
+}
+
+.usersTitle {
+  font-weight: 500;
+  margin: 10px 0px;
+}
+
+.usersListed {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.userItem {
+  border: 1px solid #7c7373;
+  padding: 0 5px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.userItemSubstring {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.strength {
+  font-size: 0.83rem;
+  font-weight: normal;
+}
