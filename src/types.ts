@@ -5,6 +5,7 @@ export interface User {
   password: string;
   country: string;
   gender: string;
+  image?: string | null;
 }
 
 export interface ValidateUser {

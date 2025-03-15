@@ -18,6 +18,11 @@ export const userSchema = object({
     .required('Confirm password is a required field. ')
     .oneOf([yup.ref('password')], 'Passwords must match'),
   gender: string().required(),
+  image: yup
+    .mixed<File>()
+    .required('Image is required')
+    .test('fileType', 'Unsupported file type', (value: File) => ['image/png', 'image/jpeg'].includes(value.type))
+    .test('fileSize', 'File size must be less than 1MB.', (value: File) => value.size <= 1024 * 1024),
   country: string().required('Country is a required field. ').oneOf(countries, 'Select country from the list.'),
   terms: boolean().required('This is a mandatory question.').isTrue('You must agree with the terms and conditions.'),
 });

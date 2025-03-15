@@ -1,5 +1,4 @@
 const ratePassword = (password: string | undefined): string => {
-  console.log('password: ', password);
   let level = 0;
   if (!password) return '';
   if (password.length > 6) level += 1;

@@ -1,10 +1,17 @@
 import _ from '../Components.module.css';
 
-const UploadImage = () => {
+interface Props {
+  refName: React.RefObject<HTMLInputElement>;
+  error: string;
+}
+const UploadImage = (props: Props) => {
   return (
     <div className={_.formUnit}>
-      <input className={_.uploadImage} type="file" name="image" id="image" accept="image/png, image/jpeg" />
-      <span className={_.error}></span>
+      <label htmlFor="image" className={_.image}>
+        Image
+        <input className={_.uploadImage} type="file" name="image" accept="image/png, image/jpeg" ref={props.refName} />
+      </label>
+      <span className={_.error}>{props.error}</span>
     </div>
   );
 };

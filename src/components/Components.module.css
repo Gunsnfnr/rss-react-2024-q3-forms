@@ -15,7 +15,8 @@
 .password,
 .confirmPassword,
 .country,
-.gender {
+.gender,
+.image {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -28,7 +29,8 @@
 .password,
 .confirmPassword,
 .country,
-.gender > :not(.genders) {
+.gender > :not(.genders),
+.image {
   color: #331f1f;
   font-weight: 700;
   font-size: 1.05rem;
@@ -103,4 +105,13 @@ input[type='password'] {
 .strength {
   font-size: 0.83rem;
   font-weight: normal;
+}
+
+.userImage {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 5px 0 5px 5px;
+  border: 1px solid #b3b3b3;
 }

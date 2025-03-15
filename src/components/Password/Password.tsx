@@ -14,7 +14,7 @@ const Password = (props: Props) => {
     <div className={_.formUnit}>
       <label htmlFor="password" className={_.password}>
         password
-        <div>
+        <>
           {props.refName.current?.value && <span className={`${_.strength}`}>(Strength: {strength}) </span>}
           <input
             type="password"
@@ -22,8 +22,9 @@ const Password = (props: Props) => {
             name="password"
             ref={props.refName}
             onChange={() => setStrength(ratePassword(props.refName.current?.value))}
+            autoComplete="password"
           />
-        </div>
+        </>
       </label>
       <span className={_.error}>{props.error}</span>
     </div>

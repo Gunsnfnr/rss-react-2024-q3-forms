@@ -12,7 +12,7 @@ const GenderPicker = (props: Props) => {
         <div className={_.genders}>
           <label htmlFor="gender_m" className={_.pr70}>
             Male
-            <input type="radio" id="gender_m" name="gender" value="male" ref={props.refName[0]} />
+            <input type="radio" id="gender_m" name="gender" value="male" ref={props.refName[0]} defaultChecked />
           </label>
           <label htmlFor="gender_f">
             Female
