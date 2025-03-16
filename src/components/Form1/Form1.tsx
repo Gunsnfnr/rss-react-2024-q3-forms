@@ -119,7 +119,7 @@ const Form1 = () => {
             image: imageBase64,
           }),
         );
-        navigate('/');
+        navigate('/submitted');
       }
     }
   };

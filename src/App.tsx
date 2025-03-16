@@ -12,6 +12,10 @@ const router = createBrowserRouter([
     Component: Main,
   },
   {
+    path: '/submitted',
+    Component: Main,
+  },
+  {
     path: '/form1',
     Component: Form1,
   },

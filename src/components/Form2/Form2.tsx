@@ -43,7 +43,7 @@ const Form2 = () => {
           image: base64Image,
         };
         dispatch(submitUser(userData));
-        navigate('/');
+        navigate('/submitted');
       } catch (error) {
         console.error('Error converting image to Base64:', error);
       }
