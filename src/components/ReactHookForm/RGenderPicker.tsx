@@ -14,7 +14,7 @@ const RGenderPicker = (props: Props) => {
         <div className={_.genders}>
           <label htmlFor="gender_m" className={_.pr70}>
             Male
-            <input type="radio" id="gender_m" value="male" {...props.register('gender')} />
+            <input type="radio" id="gender_m" value="male" {...props.register('gender')} checked={true} />
           </label>
           <label htmlFor="gender_f">
             Female

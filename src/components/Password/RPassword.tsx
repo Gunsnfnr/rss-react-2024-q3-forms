@@ -28,9 +28,9 @@ const RPassword = (props: Props) => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               if (!e.target) return null;
               setPasswordValue(e.target.value);
-              console.log(props.passwordInputValue);
               setStrength(ratePassword(e.target.value));
             }}
+            autoComplete="password"
           />
         </div>
       </label>

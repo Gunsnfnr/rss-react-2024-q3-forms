@@ -5,7 +5,6 @@ import { userSchema } from '../../userSchema';
 import { useForm } from 'react-hook-form';
 import RLabelInput from '../ReactHookForm/RLabelInput';
 import { ValidateUser } from '../../types';
-import UploadImage from '../UploadImage/UploadImage';
 import RGenderPicker from '../ReactHookForm/RGenderPicker';
 import RTermsConditions from '../ReactHookForm/RTermsConditions';
 import RCountry from '../ReactHookForm/RCountry';
@@ -13,6 +12,8 @@ import { FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { submitUser } from '../../store/usersSlice';
 import RPassword from '../Password/RPassword';
+import RUploadImage from '../ReactHookForm/RUploadImage';
+import { convertToBase64 } from '../../utilities/convertToBase64';
 
 const Form2 = () => {
   const {
@@ -20,7 +21,7 @@ const Form2 = () => {
     register,
     watch,
     formState: { errors, isValid },
-  } = useForm({
+  } = useForm<ValidateUser>({
     resolver: yupResolver(userSchema),
     mode: 'onChange',
   });
@@ -28,22 +29,27 @@ const Form2 = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onSubmit = (data: ValidateUser) => {
+  const onSubmit = async (data: ValidateUser) => {
     if (Object.values(errors).length === 0) {
-      dispatch(
-        submitUser({
+      try {
+        const base64Image = await convertToBase64(data.image[0]);
+        const userData = {
           name: data.name,
-          age: Number(data.age),
+          age: data.age,
           email: data.email,
           password: data.password,
           country: data.country,
           gender: data.gender ? data.gender : '',
-        }),
-      );
-      navigate('/');
+          image: base64Image,
+        };
+        dispatch(submitUser(userData));
+        navigate('/');
+      } catch (error) {
+        console.error('Error converting image to Base64:', error);
+      }
     }
   };
-  console.log('!watch(password): ', watch('password'));
+
   return (
     <>
       <div>Form #2 - React Hook Form</div>
@@ -64,16 +70,11 @@ const Form2 = () => {
         <RPassword register={register} error={errors.password} passwordInputValue={watch('password')} />
         <RLabelInput type="password" name="confirmPassword" register={register} error={errors.confirmPassword} />
         <RGenderPicker register={register} error={errors.gender} />
-        <UploadImage />
+        <RUploadImage register={register} error={errors.image} />
         <RCountry register={register} error={errors.country} />
         <RTermsConditions register={register} error={errors.terms} />
 
-        <input
-          type="submit"
-          value="Submit"
-          disabled={!isValid}
-          onClick={() => console.log('watch(password): ', watch('password'))}
-        />
+        <input type="submit" value="Submit" disabled={!isValid} />
       </form>
     </>
   );

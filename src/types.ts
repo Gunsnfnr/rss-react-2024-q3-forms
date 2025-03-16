@@ -19,4 +19,5 @@ export interface ValidateUser {
   terms: true;
   country: string;
   gender: string;
+  image: FileList;
 }

@@ -11,6 +11,7 @@ import { submitUser } from '../../store/usersSlice';
 import Country from '../Country/Country';
 import UploadImage from '../UploadImage/UploadImage';
 import Password from '../Password/Password';
+import { convertToBase64 } from '../../utilities/convertToBase64';
 
 const Form1 = () => {
   const [nameError, setNameError] = useState('');
@@ -71,7 +72,7 @@ const Form1 = () => {
         password: passwordRef.current.value,
         confirmPassword: confirmPasswordRef.current.value,
         gender: genderMaleRef.current.checked ? 'male' : 'female',
-        image: imageRef.current?.files?.[0],
+        image: imageRef.current?.files,
         country: countryRef.current.value,
         terms: termsRef.current.checked,
       };
@@ -96,15 +97,6 @@ const Form1 = () => {
     } finally {
       if (Object.values(errors).every((val) => val === '')) {
         const file = imageRef.current?.files?.[0];
-
-        const convertToBase64 = (file: File): Promise<string> => {
-          return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result as string);
-            reader.onerror = reject;
-          });
-        };
 
         let imageBase64: string | null = null;
         if (file) {
