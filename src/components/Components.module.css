@@ -1,0 +1,130 @@
+.mb25 {
+  margin-bottom: 25px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 460px;
+}
+
+.name,
+.age,
+.email,
+.password,
+.confirmPassword,
+.country,
+.gender,
+.image {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.name,
+.age,
+.email,
+.password,
+.confirmPassword,
+.country,
+.gender > :not(.genders),
+.image {
+  color: #331f1f;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='number'],
+input[type='password'] {
+  width: 250px;
+}
+
+.error {
+  color: #e20000;
+  height: 15px;
+  align-self: flex-end;
+  line-height: 18px;
+  font-size: 0.8rem;
+  text-align: left;
+}
+
+.formUnit {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.pr55 {
+  padding-right: 55px;
+}
+
+.pr70 {
+  padding-right: 70px;
+}
+
+.mr10 {
+  margin-right: 10px;
+}
+.uploadImage {
+  align-self: self-start;
+  width: 180px;
+  direction: rtl;
+}
+
+.usersTitle {
+  font-weight: 500;
+  margin: 10px 0px;
+}
+
+.usersListed {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.userItem {
+  border: 1px solid #7c7373;
+  padding: 0 5px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.last {
+  animation: indicate 3s ease-in-out 0.3s forwards;
+}
+
+@keyframes indicate {
+  from {
+    border: 1px solid #4169e1;
+    box-shadow: 0px 0px 3px 2px #4169e1;
+  }
+  to {
+    border: 1px solid #7c7373;
+  }
+}
+.userItemSubstring {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.strength {
+  font-size: 0.83rem;
+  font-weight: normal;
+}
+
+.userImage {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 5px 0 5px 5px;
+  border: 1px solid #b3b3b3;
+}
